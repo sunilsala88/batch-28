@@ -16,19 +16,33 @@ print(l1[-1])
 l1[1]=99
 print(l1)
 
-
-#adding new elem in list
-l1.append(87)
+l1[-2]=0
 print(l1)
 
-l1.insert(1,77)
-print(l1)
+# #adding new elem in list
+# l1.append(87)
+# print(l1)
 
-#remove elem from list
-l1.remove(55)
-l1.remove(55)
-print(l1)
+# l1.insert(1,77)
+# print(l1)
 
-v=l1.pop()
+# #remove elem from list
+# l1.remove(55)
+# l1.remove(55)
+# print(l1)
+
+# v=l1.pop()
+# print(l1)
+# print(v)
+
+# l1.clear()
+t=l1.count(55)
+print(t)
 print(l1)
-print(v)
+a=l1.index(44)
+print(a)
+
+m1=[1,2,3]
+m2=[5,6,7]
+m1.extend(m2)
+print(m1)
