@@ -58,5 +58,27 @@ print(s1)
 print(s1.lower())
 print(s1.endswith('rr'))
 print(s1.find('e'))
+
 stocks=['a','b','v']
 print('-'.join(stocks))
+
+st1='alsdjf lajsdf jlk'
+print(st1.split(' '))
+
+string3='python'
+a=string3.replace('o','a')
+print(a)
+
+st5='  aklsjdflas   '
+print(st5.strip())
+
+
+# list1=[66,77,88]
+# del list1[0]
+# print(list1)
+
+
+t1=(55,66,77,'world')
+print(t1)
+t1.count(66)
+print(t1.index(55))
