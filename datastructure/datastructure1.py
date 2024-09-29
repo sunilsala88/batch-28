@@ -1,27 +1,27 @@
-#list are mutable
+# #list are mutable
 l1=[22,33,44,55,'trading',55]
 
-print(l1[0])
-print(l1[-3:-1])
+# print(l1[0])
+# print(l1[-3:-1])
 
-#string immutable
-s1='hello'
+# #string immutable
+# s1='hello'
 
-print(s1[0])
-print(s1[2:4])
+# print(s1[0])
+# print(s1[2:4])
 
-print(l1[-1])
+# print(l1[-1])
 
-#changing value at index
-l1[1]=99
-print(l1)
+# #changing value at index
+# l1[1]=99
+# print(l1)
 
-l1[-2]=0
-print(l1)
+# l1[-2]=0
+# print(l1)
 
 # #adding new elem in list
-# l1.append(87)
-# print(l1)
+l1.append(87)
+print(l1)
 
 # l1.insert(1,77)
 # print(l1)
@@ -35,14 +35,28 @@ print(l1)
 # print(l1)
 # print(v)
 
-# l1.clear()
-t=l1.count(55)
-print(t)
-print(l1)
-a=l1.index(44)
-print(a)
+# # l1.clear()
+# t=l1.count(55)
+# print(t)
+# print(l1)
+# a=l1.index(44)
+# print(a)
 
-m1=[1,2,3]
-m2=[5,6,7]
-m1.extend(m2)
-print(m1)
+# m1=[1,2,3]
+# m2=[5,6,7]
+# m1.extend(m2)
+# print(m1)
+
+
+
+s1='fessorPro'
+a=s1.index('s')
+print(a)
+b=s1.upper()
+print(b)
+print(s1)
+print(s1.lower())
+print(s1.endswith('rr'))
+print(s1.find('e'))
+stocks=['a','b','v']
+print('-'.join(stocks))
