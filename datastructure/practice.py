@@ -143,3 +143,5 @@ data= [
 print(data[1].get('current_price'))
 data[2].update({'current_price':310.0})
 print(data[2])
+data[0].get('historical_data').pop(1)
+print(data[0])
