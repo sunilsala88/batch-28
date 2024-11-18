@@ -1,0 +1,5 @@
+amzn:300
+goog:500
+tsla:700
+total:1500
+total:3000
