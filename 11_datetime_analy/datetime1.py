@@ -68,3 +68,8 @@ print(s1)
 
 #get me epoch time for this string
 s3='2 April 2018'
+f="%d %B %Y"
+dt6=dt.datetime.strptime(s3,f)
+print(dt6)
+e5=dt6.timestamp()
+print(e5)
