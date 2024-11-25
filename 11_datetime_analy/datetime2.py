@@ -37,3 +37,7 @@ print(df1)
 
 df1['Date added']=pd.to_datetime(df1['Date added'],format='%d %B %Y')
 print(df1)
+
+d1=pd.to_datetime('2010-01-01')
+print(d1)
+print(df1[df1['Date added']>d1].shape)
