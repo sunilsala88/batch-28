@@ -3,6 +3,7 @@
 import yfinance as yf
 import pandas as pd
 import pandas_ta as ta
+import talib 
 # #talib
 # #pandasta
 data=yf.download(tickers='^NSEI',period='1y')
@@ -18,9 +19,10 @@ print(data)
 print(ta.sma(data['Close']))
 
 #installing talib
+#windows
+#https://github.com/cgohlke/talib-build/releases
 #pip install "/Users/algotrading2024/batch 28/ta_lib-0.5.1-cp312-cp312-win_amd64.whl"
-# import talib 
-# print(talib.get_functions())
+
 
 
 
@@ -32,6 +34,10 @@ print(ta.sma(data['Close']))
 #brew --version
 #brew install ta-lib
 #pip3 install TA-Lib
+
+#test if working
+# import talib 
+# print(talib.get_functions())
 
 
 #pandas-ta
