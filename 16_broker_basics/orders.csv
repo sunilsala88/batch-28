@@ -1,3 +1,1 @@
-,id,client_order_id,created_at,updated_at,submitted_at,filled_at,expired_at,canceled_at,failed_at,replaced_at,replaced_by,replaces,asset_id,symbol,asset_class,notional,qty,filled_qty,filled_avg_price,order_class,order_type,type,side,time_in_force,limit_price,stop_price,status,extended_hours,legs,trail_percent,trail_price,hwm
-0,499a9b80-b9a9-41ee-acef-0c61e10ce1dc,190d1937-e102-4fe2-a1d0-997f9931d8a4,2024-12-15 13:50:00.695039+00:00,2024-12-15 13:50:00.696539+00:00,2024-12-15 13:50:00.695039+00:00,,,,,,,,b28f4066-5c6d-479b-a2af-85dc1a8f16fb,SPY,us_equity,,1,0,,simple,market,market,buy,gtc,,,accepted,False,,,,
-1,14c30b93-bd59-4f24-b3a2-df0c78705e78,d58cb717-f8eb-4bf1-91dd-82163575acee,2024-12-15 13:48:43.778060+00:00,2024-12-15 13:48:43.780816+00:00,2024-12-15 13:48:43.778060+00:00,,,,,,,,f30d734c-2806-4d0d-b145-f9fade61432b,GOOG,us_equity,,1,0,,simple,market,market,buy,day,,,accepted,False,,,,
+""
