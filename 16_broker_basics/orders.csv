@@ -1,1 +1,2 @@
-""
+,id,client_order_id,created_at,updated_at,submitted_at,filled_at,expired_at,canceled_at,failed_at,replaced_at,replaced_by,replaces,asset_id,symbol,asset_class,notional,qty,filled_qty,filled_avg_price,order_class,order_type,type,side,time_in_force,limit_price,stop_price,status,extended_hours,legs,trail_percent,trail_price,hwm
+0,12424f90-8a1c-4d60-b4ee-ef4f1595b37c,653fe584-4d75-41ca-81b1-cce11099a854,2024-12-29 13:56:08.839588+00:00,2024-12-29 13:56:08.874760+00:00,2024-12-29 13:56:08.839588+00:00,,,,,,,,8588af33-3a8e-4a09-bb6c-ba4226dc7aff,AAVE/USD,crypto,,1,0,,simple,limit,limit,buy,gtc,300,,new,False,,,,
