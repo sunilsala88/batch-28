@@ -4,9 +4,9 @@ import time
 import logging
 import pandas_ta as ta
 
-from alpaca.trading.client import TradingClient
+
 from alpaca.trading.requests import GetOrdersRequest
-from alpaca.trading.enums import OrderSide, QueryOrderStatus
+from alpaca.trading.enums import OrderSide, QueryOrderStatus,TimeInForce
 from alpaca.data.historical import CryptoHistoricalDataClient
 # setup crypto historical data client
 crypto_historical_data_client = CryptoHistoricalDataClient()
@@ -14,7 +14,7 @@ from zoneinfo import ZoneInfo
 from alpaca.data.requests import CryptoBarsRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from alpaca.trading.requests import MarketOrderRequest
-from alpaca.trading.enums import OrderSide, TimeInForce
+
 
 
 from alpaca.trading.client import TradingClient
@@ -100,6 +100,40 @@ def get_historical_crypto_data(ticker_name,time_frame,days):
     data['sma_20']=ta.sma(data['close'],20)
     return data
 
+
+def trade_buy_stocks(ticker,closing_price):
+    print('placing market order')
+    # preparing orders
+    market_order_data = MarketOrderRequest(
+                        symbol=ticker,
+                        qty=1,
+                        side=OrderSide.BUY,
+                        time_in_force=TimeInForce.GTC
+                        )
+
+    # Market order
+    market_order = trading_client.submit_order(
+                    order_data=market_order_data
+                )
+
+def strategy(hist_df,ticker):
+    print('inside strategy conditional code ')
+    # print(hist_df)
+    print(ticker)
+    buy_condition=(hist_df['sma_20'].iloc[-1]>hist_df['sma_50'].iloc[-1]) and (hist_df['sma_20'].iloc[-2]<hist_df['sma_50'].iloc[-2])
+    money=float(trading_client.get_account().cash)
+    money=money/3
+    print(money)
+    closing_price=hist_df['close'].iloc[-1]
+    if money>closing_price:
+        if buy_condition:
+            print('buy condition satisfied')
+            trade_buy_stocks(ticker,closing_price)
+        else:
+            print('no condition satisfied')
+    else:
+        print('we dont have enough money to trade')
+
 def main_strategy_code():
     print('we are running strategy ')
     ord_df=get_all_open_orders()
@@ -118,9 +152,36 @@ def main_strategy_code():
         print(money)
         ltp=hist_df['close'].iloc[-1]
         print(ltp)
-        quantity=money/ltp
+        quantity=money//ltp
         print(quantity)
 
+        if quantity==0:
+            continue
+        
+        if pos_df.empty:
+            print('we dont have any position')
+            strategy(hist_df,ticker)
+
+        elif len(pos_df)!=0 and ticker.replace('/','') not in pos_df['symbol'].to_list():
+            print('we have some position but ticker is not in pos')
+            strategy(hist_df,ticker)
+
+        elif len(pos_df)!=0 and ticker.replace('/','')  in pos_df['symbol'].to_list():
+            print('we have some pos and ticker is in pos')
+            curr_quant=float(pos_df[pos_df['symbol']==ticker.replace('/','')]['qty'].iloc[-1])
+            print(curr_quant)
+
+            if curr_quant==0:
+                print('my quantity is 0')
+                strategy(hist_df,ticker)
+            elif curr_quant>0:
+                print('we are already long')
+                sell_condition=(hist_df['sma_20'].iloc[-1]<hist_df['sma_50'].iloc[-1]) and (hist_df['sma_20'].iloc[-2]>hist_df['sma_50'].iloc[-2])
+                if sell_condition:
+                    print('sell condition is satisfied ')
+                    close_this_position(ticker.replace('/',''))
+                else:
+                    print('sell condition not satisfied')
 
 
 
@@ -128,7 +189,7 @@ def main_strategy_code():
 current_time=dt.datetime.now()
 print(current_time)
 
-start_hour,start_min=19,3
+start_hour,start_min=18,3
 end_hour,end_min=19,35
 
 start_time=dt.datetime(current_time.year,current_time.month,current_time.day,start_hour,start_min)
@@ -154,3 +215,4 @@ while True:
         main_strategy_code()
     time.sleep(1)
 print('strategy stopped')
+
