@@ -18,8 +18,9 @@ class sma_strategy(Strategy):
         self.sam2=self.I(get_sma, closing_price, self.n2)
 
     def next(self):
-        print(self.data.df)
-        time.sleep(1)        
+    
+        # print(self.data.df)
+        # time.sleep(1)        
         #buy condition
         if self.sma1[-1]>self.sam2[-1] and self.sma1[-2]<self.sam2[-2]:
             if self.position.is_short:
