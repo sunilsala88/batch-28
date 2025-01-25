@@ -3,7 +3,7 @@
 import yfinance as yf
 import pandas_ta as ta
 from backtesting import Strategy,Backtest
-from backtesting.lib import resample_apply
+
 import time
 
 # def get_sma(closing_price,period):
@@ -25,12 +25,14 @@ def get_supertrend2(closing_price, high, low, period):
     return st[f'SUPERT_{period}_3.0']
 class SupertrendStrategy(Strategy):
     n1 = 50
-    gran = '10min'
+
 
     def init(self):
-        self.super = resample_apply(self.gran, get_supertrend, self.data.Close, self.data.High, self.data.Low, self.n1)
-        self.super2 = resample_apply(self.gran, get_supertrend2, self.data.Close, self.data.High, self.data.Low, self.n1)
-
+        print('this is data inside init')
+        closing_price=self.data.df['Close']
+        self.super=self.I(get_supertrend,self.data.df['Close'],self.data.df['High'],self.data.df['Low'],self.n1)
+        self.super2=self.I(get_supertrend2,self.data.df['Close'],self.data.df['High'],self.data.df['Low'],self.n1)
+        
     def next(self):
         # Buy condition
         if self.super[-1] > self.super[-2]:
@@ -57,10 +59,12 @@ data.drop(columns=['symbol','trade_count','vwap'],inplace=True)
 data.set_index('Date',inplace=True)
 print(data)
 #feed only 10_000 rows
-data=data.iloc[:10000]
+# data=data.iloc[:1000]
 
+# data=yf.download('RELIANCE.NS',period='10y')
+# print(data)
 
-# print(get_bollinger_band(data['Close'],20))
+# # print(get_bollinger_band(data['Close'],20))
 
 print(get_supertrend(data['Close'], data['High'], data['Low'], 10))
 
@@ -71,13 +75,13 @@ print(output)
 
 
 
-def custom_optimization(stats):
-    return stats['Win Rate [%]'] * stats['Return [%]']
+# def custom_optimization(stats):
+#     return stats['Win Rate [%]'] * stats['Return [%]']
 
 
 
-l1=['10min','15min','30min','60min','120min']
-stats=bt.optimize(gran=l1,maximize='Return [%]')
-print(stats)
-print('GOOG',stats['_strategy'])
-# bt.plot()
+# l1=['10min','15min','30min','60min','120min']
+# stats=bt.optimize(gran=l1,maximize='Return [%]')
+# print(stats)
+# print('GOOG',stats['_strategy'])
+# # bt.plot()
