@@ -67,11 +67,11 @@ data.reset_index(inplace=True)
 data['Datetime']=data['Datetime'].dt.tz_localize(None)
 data.set_index('Datetime',inplace=True)
 
-print(data)
-bt = Backtest(data, ORBStrategy, cash=3000, commission=.002)
-stats = bt.run()
-print(stats)
-bt.plot()
+# print(data)
+# bt = Backtest(data, ORBStrategy, cash=3000, commission=.002)
+# stats = bt.run()
+# print(stats)
+# bt.plot()
 
 
 
@@ -90,25 +90,30 @@ bt.plot()
 # print(stats)
 # bt.plot()
 
-# def fetch_data(symbol):
-#     data = yf.download(symbol, period='7d', interval='5m')
-#     data.reset_index(inplace=True)
-#     data['Datetime']=data['Datetime'].dt.tz_localize(None)
-#     data.set_index('Datetime',inplace=True)
-#     return data
+def fetch_data(symbol):
+    data = yf.download(symbol, period='7d', interval='5m')
+    print(data)
+    data.reset_index(inplace=True)
+    data['Datetime']=data['Datetime'].dt.tz_localize(None)
+    data.set_index('Datetime',inplace=True)
+    return data
 
-# stocks=['AAPL','GOOG','AMZN','MSFT']
-# results = {}
-# for stock in stocks:
-#     data = fetch_data(stock)
-#     print(data)
-#     data['Date']=data['Date'].dt.tz_localize(None)
-#     data.set_index('Date',inplace=True)
-#     bt = Backtest(data, ORBStrategy, cash=100_000, commission=.002)
-#     stats = bt.run()
-#     results[stock] = stats
-#     # bt.plot()
+stocks=['AAPL','GOOG','AMZN','MSFT']
+results = {}
+returns={}
+for stock in stocks:
+    data = fetch_data(stock)
+    print(data)
+    # data['Date']=data['Date'].dt.tz_localize(None)
+    # data.set_index('Date',inplace=True)
+    bt = Backtest(data, ORBStrategy, cash=100_000, commission=.002)
+    stats = bt.run()
+    results[stock] = stats
+    print(stats)
+    # bt.plot()
+    returns[stock]=stats['Return [%]']
 
-# for stock, stats in results.items():
-#     print(f"{stock}:")
-#     print(stats)
+for stock, stats in results.items():
+    print(f"{stock}:")
+    print(stats)
+print(returns)

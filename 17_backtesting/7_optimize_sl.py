@@ -8,7 +8,8 @@ import time
 
 
 class ORBStrategy(Strategy):
-    
+    sl1=0.01
+    tp1=0.01
     def init(self):
         self.orb_high = None
         self.orb_low = None
@@ -32,11 +33,11 @@ class ORBStrategy(Strategy):
                 if (self.data.Close[-1] > self.orb_high) and self.trade==0:
                     # print('buy condition satisfied')
                     p=self.data.Close[-1]
-                    self.buy(sl=self.data.Close[-1]*0.97,tp=self.data.Close[-1]*1.01)
+                    self.buy(sl=self.data.Close[-1]*(1-self.sl1),tp=self.data.Close[-1]*(1+self.tp1))
                     self.trade=1
                 elif (self.data.Close[-1] < self.orb_low) and self.trade==0:
                     # print('sell condition satisfied')
-                    self.sell(sl=self.data.Close[-1]*1.01,tp=self.data.Close[-1]*0.99)
+                    self.sell(sl=self.data.Close[-1]*(1+self.tp1),tp=self.data.Close[-1]*(1-self.sl1))
                     self.trade=1
             elif self.position:
                 # Close position by the end of the day
@@ -73,42 +74,10 @@ stats = bt.run()
 print(stats)
 bt.plot()
 
-
-
-# data = fetch_data('AMZN')
-# print(data)
-
-
-  # Focus on regular trading hours
-# data.to_csv('data.csv')
-# data['Date']=data['Date'].dt.tz_localize(None)
-# data.set_index('Date',inplace=True)
-# data = data.between_time('09:00:00', '16:00:00')
-
-# bt = Backtest(data, ORBStrategy, cash=100_000, commission=.002)
-# stats = bt.run()
-# print(stats)
+#optimize sl and tp
+s1=[0.01,0.02,0.03]
+s2=[0.01,0.02,0.03]
+st=bt.optimize(sl1=s1,tp1=s2,maximize='Return [%]')
+print(st)
+print(st['_strategy'])
 # bt.plot()
-
-# def fetch_data(symbol):
-#     data = yf.download(symbol, period='7d', interval='5m')
-#     data.reset_index(inplace=True)
-#     data['Datetime']=data['Datetime'].dt.tz_localize(None)
-#     data.set_index('Datetime',inplace=True)
-#     return data
-
-# stocks=['AAPL','GOOG','AMZN','MSFT']
-# results = {}
-# for stock in stocks:
-#     data = fetch_data(stock)
-#     print(data)
-#     data['Date']=data['Date'].dt.tz_localize(None)
-#     data.set_index('Date',inplace=True)
-#     bt = Backtest(data, ORBStrategy, cash=100_000, commission=.002)
-#     stats = bt.run()
-#     results[stock] = stats
-#     # bt.plot()
-
-# for stock, stats in results.items():
-#     print(f"{stock}:")
-#     print(stats)
