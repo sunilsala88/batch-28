@@ -28,9 +28,9 @@ class supertrend(Strategy):
 
     def init(self):
         self.super1=self.I(supertrend1,self.data.High.s,self.data.Low.s,self.data.Close.s)
-        self.super2=self.I(supertrend2,self.data.High.s,self.data.Low.s,self.data.Close.s)
+        # self.super2=self.I(supertrend2,self.data.High.s,self.data.Low.s,self.data.Close.s)
         
-        self.ema_hour=self.I(ema,self.data.Close.s,self.n1)
+        # self.ema_hour=self.I(ema,self.data.Close.s,self.n1)
 
         self.daily_ema = resample_apply('D', ema,self.data.Close.s,self.n1)
 
@@ -68,7 +68,12 @@ import yfinance as yf
 data=yf.download('^NSEI',period='700d',interval='1h')
 print(data)
 
-
+s1=supertrend1(data.High,data.Low,data.Close)
+s2=supertrend2(data.High,data.Low,data.Close)
+e1=ema(data.Close,10)
+print(s1)
+print(s2)
+print(e1)
 
 bt=Backtest(data,supertrend,cash=25000)
 output=bt.run()
