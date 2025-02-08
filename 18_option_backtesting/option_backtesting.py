@@ -24,6 +24,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 logging.basicConfig(filename='option_backtesting.log', filemode='w', level=logging.INFO, format=' %(message)s')  # Configuring logging
 logging.info('this is my first line')  # Logging the first line
 
+data_address='/Users/algotrading2024/batch 28/option_history.db'
 
 holidays = ['2021-01-26', '2021-03-11', '2021-03-29', '2021-04-02', '2021-04-14', '2021-04-21', '2021-05-13', '2021-07-21', '2021-08-19', '2021-09-10', '2021-10-15', '2021-11-04', '2021-11-05', '2021-11-19', '2022-01-26', '2022-03-01', '2022-03-18', '2022-04-14', '2022-04-15', '2022-05-03', '2022-08-09', '2022-08-15', '2022-08-31', '2022-10-05', '2022-10-24', '2022-10-26', '2022-11-08', '2023-01-26', '2023-03-07', '2023-03-30', '2023-04-04', '2023-04-07', '2023-04-14', '2023-04-21', '2023-05-01', '2023-06-28', '2023-08-15', '2023-09-19', '2023-10-02', '2023-10-24', '2023-11-14', '2023-11-27', '2023-12-25']
 holidays = [datetime.strptime(x, '%Y-%m-%d') for x in holidays]  # Converting holiday strings to datetime objects
@@ -96,7 +97,7 @@ print(a)
 
 
 def get_from_database():
-    con = sqlite3.connect('/Users/algotrading2024/batch 27/.data/option_history.db')
+    con = sqlite3.connect(data_address)
     cursorObj = con.cursor()
     cursorObj.execute('SELECT name from sqlite_master where type= "table"')
     data= cursorObj.fetchall()
