@@ -244,6 +244,7 @@ for month in range(1,7):
                             trades.write(start.strftime('%Y-%m-%d %H:%M:%S')+" , "+str(open_price)+'put'+end +","+'buy'+','+str(atm_put_price)+','+str(spot_price)+','+str(money)+'\n')
 
                     else:
+                        
                         if int(float(spot_price))>int((low)):
                             logging.info('selling atm put option ')
                             atm_put_price=option_price_df[atm.replace('call','put')][option_price_df[atm.replace('call','put')]['datetime']==start.strftime('%Y-%m-%d %H:%M:%S')].open.values[0]
